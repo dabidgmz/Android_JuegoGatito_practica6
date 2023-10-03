@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private int playerTwoVictories = 0;
     private boolean gameActive = true;
 
+    private static final int VICTORY_THRESHOLD = 3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
     private void startTurnTimer() {
         timer = new CountDownTimer(10000, 1000) { // 30 segundos
             public void onTick(long millisUntilFinished) {
-                // Actualizar el timerTextView con el tiempo restante en el formato "mm:ss"
                 long seconds = millisUntilFinished / 1000;
                 String timeLeftFormatted = String.format("%02d:%02d", seconds / 60, seconds % 60);
                 gameTimer.setText("Tiempo restante: " + timeLeftFormatted);
@@ -144,18 +145,40 @@ public class MainActivity extends AppCompatActivity {
         if (playerTurn == 1) {
             playerOneVictories++;
             playerOneWins.setText("Victorias Jugador 1: " + playerOneVictories);
-            Toast.makeText(this, "¡Jugador 1 ha ganado!", Toast.LENGTH_SHORT).show();
+            if (playerOneVictories == VICTORY_THRESHOLD) {
+                Toast.makeText(this, "¡Jugador 1 ha ganado el juego!", Toast.LENGTH_SHORT).show();
+                resetGame();
+            } else {
+                Toast.makeText(this, "¡Jugador 1 ha ganado!", Toast.LENGTH_SHORT).show();
+                resetRound();
+            }
         } else {
             playerTwoVictories++;
             playerTwoWins.setText("Victorias Jugador 2: " + playerTwoVictories);
-            Toast.makeText(this, "¡Jugador 2 ha ganado!", Toast.LENGTH_SHORT).show();
+            if (playerTwoVictories == VICTORY_THRESHOLD) {
+                Toast.makeText(this, "¡Jugador 2 ha ganado el juego!", Toast.LENGTH_SHORT).show();
+                resetGame();
+            } else {
+                Toast.makeText(this, "¡Jugador 2 ha ganado!", Toast.LENGTH_SHORT).show();
+                resetRound();
+            }
         }
-        resetGame();
     }
 
     private void handleDraw() {
         Toast.makeText(this, "¡Empate!", Toast.LENGTH_SHORT).show();
-        resetGame();
+        resetRound();
+    }
+
+    private void resetRound() {
+        for (int i = 0; i < boxPositions.length; i++) {
+            boxPositions[i] = 0;
+            ImageView box = findViewById(getResources().getIdentifier("image" + (i + 1), "id", getPackageName()));
+            box.setImageResource(android.R.color.transparent);
+        }
+        playerTurn = 1;
+        gameActive = true;
+        startTurnTimer();
     }
 
     private void resetGame() {
@@ -164,6 +187,10 @@ public class MainActivity extends AppCompatActivity {
             ImageView box = findViewById(getResources().getIdentifier("image" + (i + 1), "id", getPackageName()));
             box.setImageResource(android.R.color.transparent);
         }
+        playerOneVictories = 0;
+        playerTwoVictories = 0;
+        playerOneWins.setText("Victorias Jugador 1: " + playerOneVictories);
+        playerTwoWins.setText("Victorias Jugador 2: " + playerTwoVictories);
         playerTurn = 1;
         gameActive = true;
         startTurnTimer();
