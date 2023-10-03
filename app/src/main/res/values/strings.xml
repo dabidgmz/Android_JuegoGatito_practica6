@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">practica6</string>
+    <string name="tiempo_para_tu_sig_movimiento_00_10">Tiempo para Tu sig. Movimiento: 00:10</string>
+    <string name="jugador_1">Jugador 1</string>
+    <string name="jugador_2">jugador 2</string>
+    <string name="es_turno_del_jugador_1">Es turno del jugador 1</string>
+    <string name="victorias_jugador_1_0">Victorias Jugador 1: 0</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.practica6;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -11,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private int[] boxPositions = {0, 0, 0, 0, 0, 0, 0, 0, 0}; // 0 representa casilla vacía
-    private int playerTurn = 1; // 1 para X, 2 para O
+    private int playerTurn = 1;
     private CountDownTimer timer;
     private TextView timerTextView1;
 
@@ -74,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     private void switchPlayer() {
         playerTurn = (playerTurn == 1) ? 2 : 1;
         updateTurnText();
-        // Reiniciar el temporizador para el nuevo jugador
         if (timer != null) {
             timer.cancel();
         }
@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }.start();
     }
-
 
     private boolean checkForWin() {
         for (int row = 0; row < 3; row++) {
@@ -147,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             playerOneWins.setText("Victorias Jugador 1: " + playerOneVictories);
             if (playerOneVictories == VICTORY_THRESHOLD) {
                 Toast.makeText(this, "¡Jugador 1 ha ganado el juego!", Toast.LENGTH_SHORT).show();
-                resetGame();
+                redirectToAnotherView(playerTurn, playerOneVictories, playerTwoVictories);
             } else {
                 Toast.makeText(this, "¡Jugador 1 ha ganado!", Toast.LENGTH_SHORT).show();
                 resetRound();
@@ -157,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             playerTwoWins.setText("Victorias Jugador 2: " + playerTwoVictories);
             if (playerTwoVictories == VICTORY_THRESHOLD) {
                 Toast.makeText(this, "¡Jugador 2 ha ganado el juego!", Toast.LENGTH_SHORT).show();
-                resetGame();
+                redirectToAnotherView(playerTurn, playerOneVictories, playerTwoVictories);
             } else {
                 Toast.makeText(this, "¡Jugador 2 ha ganado!", Toast.LENGTH_SHORT).show();
                 resetRound();
@@ -181,18 +180,13 @@ public class MainActivity extends AppCompatActivity {
         startTurnTimer();
     }
 
-    private void resetGame() {
-        for (int i = 0; i < boxPositions.length; i++) {
-            boxPositions[i] = 0;
-            ImageView box = findViewById(getResources().getIdentifier("image" + (i + 1), "id", getPackageName()));
-            box.setImageResource(android.R.color.transparent);
-        }
-        playerOneVictories = 0;
-        playerTwoVictories = 0;
-        playerOneWins.setText("Victorias Jugador 1: " + playerOneVictories);
-        playerTwoWins.setText("Victorias Jugador 2: " + playerTwoVictories);
-        playerTurn = 1;
-        gameActive = true;
-        startTurnTimer();
+    private void redirectToAnotherView(int ganador, int victoriasJugador1, int victoriasJugador2) {
+        Intent intent = new Intent(this, reinicio.class);
+
+        intent.putExtra("ganador", ganador);
+        intent.putExtra("victoriasJugador1", victoriasJugador1);
+        intent.putExtra("victoriasJugador2", victoriasJugador2);
+
+        startActivity(intent);
     }
 }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/degradado"
+    android:background="@drawable/dregrado"
     tools:context=".MainActivity">
 
     <TextView
@@ -16,7 +16,7 @@
         android:layout_below="@id/timerTextView1"
         android:layout_marginTop="142dp"
         android:background="@drawable/white_box"
-        android:text="Tiempo para Tu sig. Movimiento: 00:10"
+        android:text="@string/tiempo_para_tu_sig_movimiento_00_10"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/playerOneLayout"
-        android:text="Es turno del jugador 1"
+        android:text="@string/es_turno_del_jugador_1"
         android:textSize="18sp"
         android:layout_marginBottom="20dp"
         android:textColor="@android:color/black"
@@ -43,63 +43,63 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/playerOneLayout"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:id="@+id/playerOneLayout"
-            android:orientation="vertical"
+            android:background="@drawable/white_box"
             android:gravity="center"
-            android:background="@drawable/white_box">
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/playerOneName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Jugador 1"
-                android:id="@+id/playerOneName"
-                android:textSize="20sp"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:maxLines="1"
+                android:text="@string/jugador_1"
                 android:textColor="@color/black"
-                android:maxLines="1"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ximage"
+                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:layout_gravity="center"/>
+                android:src="@drawable/ximage" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/playerTwoLayout"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:id="@+id/playerTwoLayout"
-            android:orientation="vertical"
+            android:background="@drawable/white_box"
             android:gravity="center"
-            android:background="@drawable/white_box">
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/playerTwoName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="jugador 2"
-                android:id="@+id/playerTwoName"
-                android:textSize="20sp"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:maxLines="1"
+                android:text="@string/jugador_2"
                 android:textColor="@color/black"
-                android:maxLines="1"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/oimage"
+                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:layout_gravity="center"/>
+                android:src="@drawable/oimage" />
 
         </LinearLayout>
 
@@ -255,7 +255,7 @@
             android:background="@drawable/white_box"
             android:layout_below="@id/playerOneLayout"
             android:layout_centerHorizontal="true"
-            android:text="Victorias Jugador 1: 0"
+            android:text="@string/victorias_jugador_1_0"
             android:textSize="18sp"
             android:textColor="@android:color/black"
             android:layout_marginTop="16dp"/>
